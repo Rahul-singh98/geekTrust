@@ -1,0 +1,54 @@
+from enum import Enum
+
+
+class ProgramName(Enum):
+    CERTIFICATION = "CERTIFICATION"
+    DIPLOMA = "DIPLOMA"
+    DEGREE = "DEGREE"
+
+
+class ProgramChargesEnum(Enum):
+    CERTIFICATION = 3000.00
+    DIPLOMA = 2500.00
+    DEGREE = 5000.00
+
+
+class CouponsEnum(Enum):
+    DEAL_G20 = "DEAL_G20"
+    DEAL_G5 = "DEAL_G5"
+    B4G1 = "B4G1"
+
+    DEAL_G20_DISCOUNT = 0.2
+    DEAL_G5_DISCOUNT = 0.05
+    
+    DEAL_G20_MINIMUM_AMOUNT = 10000.0
+    DEAL_G5_MINIMUM_COURSES = 2.0
+
+
+class Discount(Enum):
+    DIPLOMA = 0.01
+    CERTIFICATION = 0.02
+    DEGREE = 0.03
+
+
+class ConstantsEnum(Enum):
+    ENROLLMENT_THRESHOLD_AMOUNT = 6666.00
+    PRO_MEMBERSHIP_FEE = 200
+    ENROLLMENT_FEE = 500
+    ATMOST_COURSES = 4.0
+
+
+class InputFormat(Enum):
+    ADD_PROGRAMME = "ADD_PROGRAMME"
+    APPLY_COUPON = "APPLY_COUPON"
+    PRINT_BILL = "PRINT_BILL"
+    ADD_PRO_MEMBERSHIP = "ADD_PRO_MEMBERSHIP"
+
+
+class OutputFormat(Enum):
+    SUB_TOTAL = "SUB_TOTAL"
+    COUPON_DISCOUNT = "COUPON_DISCOUNT"
+    TOTAL_PRO_DISCOUNT = "TOTAL_PRO_DISCOUNT"
+    PRO_MEMBERSHIP_FEE = "PRO_MEMBERSHIP_FEE"
+    ENROLLMENT_FEE = "ENROLLMENT_FEE"
+    TOTAL = "TOTAL"
