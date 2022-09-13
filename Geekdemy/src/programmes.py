@@ -4,6 +4,7 @@ from src.constants import (
     ConstantsEnum
 )
 
+
 class ManagementSystem:
     def __init__(self):
         self._programmes_list = []
@@ -22,12 +23,12 @@ class ManagementSystem:
 
     def add_coupon(self, coupon):
         self._coupons_list.append(coupon)
-    
+
     def get_coupons(self):
         return self._coupons_list
 
     def add_promembership(self, programmes):
-        self.pro_membership_fees = ConstantsEnum.PRO_MEMBERSHIP_FEE
+        self.pro_membership_fees = ConstantsEnum.PRO_MEMBERSHIP_FEE.value
         for course in programmes:
             discount = Discount[course.name].value * course.price
             course.price -= discount
@@ -46,15 +47,55 @@ class ManagementSystem:
         total = 0
         for course in programmes:
             total += course.price
+        if total >= ConstantsEnum.ENROLLMENT_THRESHOLD_AMOUNT.value:
+            self.enrollment_fees = 0
         return total
-    
+
+    def get_total(self):
+        total = (
+            + self.total_pro_discount
+            + self.pro_membership_fees
+            + self.enrollment_fees
+            - self.coupon_discount
+        )
+        return total
+
     def print_bill(self, programmes, coupons):
         subtotal = self.get_subtotal(programmes)
-        self.apply_coupons(programmes, coupons)
-        print("Subtotal", subtotal)
+        print("SUB_TOTAL {0:.2f}".format(subtotal))
+        print("COUPON_DISCOUNT {0} {1:.2f}".format(self.coupon_name, self.coupon_discount))
+        print("TOTAL_PRO_DISCOUNT {0:.2f}".format(self.total_pro_discount))
+        print("PRO_MEMBERSHIP_FEE {0:.2f}".format(self.pro_membership_fees))
+        print("ENROLLMENT_FEE {0:.2f}".format(self.enrollment_fees))
+        print("TOTAL {0:.2f}".format(self.get_total() + subtotal))
+
+    @staticmethod
+    def list_to_string(_list):
+        """
+            Converts list to string
+            Args:
+                _list (list): parameter which needed to 
+                convert in string
+            Return:
+                string (str)
+        """
+        string = ""
+
+        for _l in _list:
+            if(_l is None):
+                string += "NONE"
+            elif(isinstance(_l, float)
+                 or isinstance(_l, int)):
+                string += "{0:.2f}".format(_l)
+            else:
+                string += _l
+            string += " "
+
+        return string[:-1]
+
 
 class ProgrammeDetails:
     def __init__(self, title, qty):
         self.name = title
         self.qty = qty
-        self.price = ProgramChargesEnum[title].value * qty    
+        self.price = ProgramChargesEnum[title].value * qty

@@ -6,6 +6,9 @@ from src.constants import (
 from abc import ABC, abstractmethod
 
 class Coupons(ABC):
+    def __init__(self, name):
+        self.name = name
+
     @abstractmethod
     def apply_coupon(self, programmes):
         raise NotImplementedError
@@ -16,6 +19,9 @@ class Coupons(ABC):
 
 
 class Coupon_B4G1(Coupons):
+    def __init__(self, name):
+        super().__init__(name)
+
     def is_applicable(self, programmes):
         total_quantity = 0
         for course in programmes:
@@ -29,8 +35,8 @@ class Coupon_B4G1(Coupons):
     def get_lowest_value_course(self, programmes):
         min_course_value = 1e9
         for course in programmes:
-            course_price = ProgramChargesEnum[course.name].value * course.qty
-            if(min_course_value < course_price):
+            course_price = course.price / course.qty
+            if(min_course_value > course_price):
                 min_course_value = course_price
         return 0 if min_course_value == 1e9 else min_course_value
 
@@ -44,6 +50,9 @@ class CouponCostPolicy:
         
 
 class Coupon_G20(Coupons, CouponCostPolicy):
+    def __init__(self, name):
+        Coupons.__init__(self, name)
+        
     def is_applicable(self, programmes):
         cost = CouponCostPolicy.get_total_cost(self, programmes)
         return cost >= CouponsEnum.DEAL_G20_MINIMUM_AMOUNT.value
@@ -55,6 +64,9 @@ class Coupon_G20(Coupons, CouponCostPolicy):
     
 
 class Coupon_G5(Coupons, CouponCostPolicy):
+    def __init__(self, name):
+        Coupons.__init__(self, name)
+        
     def is_applicable(self, programmes):
         count = self.get_total_courses(programmes)
         return count >= CouponsEnum.DEAL_G5_MINIMUM_COURSES.value
