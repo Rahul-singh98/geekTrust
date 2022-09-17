@@ -1,4 +1,4 @@
-/*Please add your sample inputs 
-here specific to the problem statement*/
-<INPUT_COMMAND_1> <ARGUMENTS>
-<INPUT_COMMAND_2> <ARGUMENTS>
+ADD_ITEM NOTEBOOK 3
+ADD_ITEM JACKET 5 
+ADD_ITEM PENS 1
+PRINT_BILL
