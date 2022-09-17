@@ -48,7 +48,7 @@ def getInput(input_file_name=None):
                 management_system.add_promembership(programmes_list)
 
             elif _line.startswith(InputFormat.PRINT_BILL.value):
-                management_system.apply_coupons(programmes_list, coupons_list)
+                # management_system.apply_coupons(programmes_list, coupons_list)
                 management_system.print_bill(programmes_list, coupons_list)
 
             else:

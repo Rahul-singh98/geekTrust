@@ -12,6 +12,7 @@ class Coupons(ABC):
     @abstractmethod
     def apply_coupon(self, programmes):
         raise NotImplementedError
+        
     
     @abstractmethod
     def is_applicable(self, programme):

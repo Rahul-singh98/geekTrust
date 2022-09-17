@@ -1,3 +1,4 @@
+from operator import truediv
 from src.constants import (
     Discount,
     ProgramChargesEnum,
@@ -11,6 +12,7 @@ class ManagementSystem:
         self._coupons_list = []
         self.total_pro_discount = 0
         self.pro_membership_fees = 0
+        self.is_pro_member = False
         self.enrollment_fees = ConstantsEnum.ENROLLMENT_FEE.value
         self.coupon_name = None
         self.coupon_discount = 0
@@ -29,14 +31,16 @@ class ManagementSystem:
 
     def add_promembership(self, programmes):
         self.pro_membership_fees = ConstantsEnum.PRO_MEMBERSHIP_FEE.value
+        # self.is_pro_member = True
         for course in programmes:
             discount = Discount[course.name].value * course.price
             course.price -= discount
             self.total_pro_discount += discount
 
     def apply_coupons(self, programmes, coupons):
+        self.sub_total = self.apply_coupons(programmes)
         for coupon in coupons:
-            if coupon.is_applicable(programmes):
+            if coupon.is_applicable(programmes):                                                                                                                                                                                                                                                                                                                                                                                                    
                 self.coupon_discount = coupon.apply_coupon(
                     programmes
                 )
@@ -49,10 +53,7 @@ class ManagementSystem:
             total += course.price
         if total >= ConstantsEnum.ENROLLMENT_THRESHOLD_AMOUNT.value:
             self.enrollment_fees = 0
-        return total
-
-    def get_total(self):
-        total = (
+        total += (
             + self.total_pro_discount
             + self.pro_membership_fees
             + self.enrollment_fees
@@ -60,8 +61,13 @@ class ManagementSystem:
         )
         return total
 
+    def get_total(self):
+        total = (        
+            
+        )
+        return total
+
     def print_bill(self, programmes, coupons):
-        subtotal = self.get_subtotal(programmes)
         print("SUB_TOTAL {0:.2f}".format(subtotal))
         print("COUPON_DISCOUNT {0} {1:.2f}".format(self.coupon_name, self.coupon_discount))
         print("TOTAL_PRO_DISCOUNT {0:.2f}".format(self.total_pro_discount))
