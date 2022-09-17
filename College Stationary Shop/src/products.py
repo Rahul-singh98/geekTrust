@@ -1,4 +1,4 @@
-# from src.constants import *
+from src.constants import *
 
 class IProducts:
     def __init__(self,  price, discount):
@@ -13,10 +13,8 @@ class IProducts:
     def set_quantity(self, qty) -> bool:
         if(self.check_max_limit(qty)):
             self._qty = qty
-            print("ITEM_ADDED")
             return True
         else:
-            print("ERROR_QUANTITY_EXCEEDED")
             return False
 
     def get_discount_price(self) -> float:
@@ -29,39 +27,57 @@ class IProducts:
 class ClothingPolicy(IProducts):
     def __init__(self, price, discount):
         super().__init__(price, discount)
-        self._max_purchase_qty = 2
+        self._max_purchase_qty = MAX_CLOTHING_ITEMS_QTY
 
 
 class StationaryPolicy(IProducts):
     def __init__(self, price, discount):
         super().__init__(price, discount)
-        self._max_purchase_qty = 3
+        self._max_purchase_qty = MAX_STATIONARY_ITEMS_QTY
 
 
 class TShirt(ClothingPolicy):
     def __init__(self):
-        super().__init__(1000, 0.10)
+        super().__init__(
+            TShirtEnum.price.value, 
+            TShirtEnum.discount.value
+        )
 
 
 class Jacket(ClothingPolicy):
     def __init__(self):
-        super().__init__(2000, 0.05)
+        super().__init__(
+            JacketEnum.price.value, 
+            JacketEnum.discount.value
+        )
 
 
 class Cap(ClothingPolicy):
     def __init__(self):
-        super().__init__(500, 0.20)
+        super().__init__(
+            CapEnum.price.value, 
+            CapEnum.discount.value
+        )
 
 
 class Notebook(StationaryPolicy):
     def __init__(self):
-        super().__init__(200, 0.20)
+        super().__init__(
+            NotebookEnum.price.value, 
+            NotebookEnum.discount.value
+        )
 
 
 class Pens(StationaryPolicy):
     def __init__(self):
-        super().__init__(300, 0.10)
+        super().__init__(
+            PensEnum.price.value, 
+            PensEnum.discount.value
+        )
 
-class Markers(IProducts):
+class Markers(StationaryPolicy):
     def __init__(self):
-        super().__init__(500, 0.05)
+        super().__init__(
+            MarkersEnum.price.value, 
+            MarkersEnum.discount.value
+        )

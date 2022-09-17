@@ -8,8 +8,9 @@ EXTRA_DISCOUNT_PERCENTAGE = 0.05
 WAVIER_TAX_PERCENTAGE = 0.1
 
 
-class Category(Enum):
-    Clothing, Stationary = 1, 2
+class QuantityReturnEnum(Enum):
+    ITEM_ADDED = "ITEM_ADDED"
+    ERROR_QUANTITY_EXCEEDED = "ERROR_QUANTITY_EXCEEDED"
 
 
 class TShirtEnum(Enum):
@@ -34,4 +35,3 @@ class PensEnum(Enum):
 
 class MarkersEnum(Enum):
     price, discount = 500, 0.05
-
