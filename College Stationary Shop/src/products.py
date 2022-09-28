@@ -27,12 +27,18 @@ class IProducts:
 class ClothingPolicy(IProducts):
     def __init__(self, price, discount):
         super().__init__(price, discount)
+        self.set_max_limit()
+
+    def set_max_limit(self):
         self._max_purchase_qty = MAX_CLOTHING_ITEMS_QTY
 
 
 class StationaryPolicy(IProducts):
     def __init__(self, price, discount):
         super().__init__(price, discount)
+        self.set_max_limit()
+
+    def set_max_limit(self):
         self._max_purchase_qty = MAX_STATIONARY_ITEMS_QTY
 
 
