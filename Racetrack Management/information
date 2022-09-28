@@ -1,0 +1,35 @@
+Vehicle - Bike, Car, Suv
+seperate dedicated track for each vehicle
+
+Track Type - 
+    Regular - ALL
+    VIP - Suv, Car
+
+Booking Fee
+    R Bike 4 60
+    R Car  2 120
+    R Suv  1 250
+    V Car  2 200
+    V Suv  1 300
+
+Booking Rules
+    min_book_time 3hrs
+    default Regular
+    if Regular not available update car and suv to VIP
+    Beyond 3 hrs, 50 charge
+    15 min Beyond 3 hrs is not chargable
+    Timming 1 PM to 8 PM
+    Last booking on 5 PM
+
+
+1. Track
+2. Vehicles
+3. Booking counter
+4. Informer
+
+Booking Counter 
+    find_available_track
+    charges
+
+Informer(Track, Vehicle)
+    
