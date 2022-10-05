@@ -22,7 +22,7 @@ class PremiumBookingRates(Enum):
 
 
 class TrackTimming(Enum):
-    OPEN, CLOSE = 1300, 1700
+    OPEN, CLOSE = 1300, 2000
 
 
 class BookingConditions(Enum):
@@ -34,3 +34,11 @@ class GlobalResponses(Enum):
     RACETRACK_FULL = "RACETRACK_FULL"
     INVALID_ENTRY_TIME = "INVALID_ENTRY_TIME"
     INVALID_EXIT_TIME = "INVALID_EXIT_TIME"
+
+
+class InputConstants(Enum):
+    BOOK, ADDITIONAL, REVENUE = 0, 1, 2
+
+
+class Outcome(Enum):
+    RET_NOT_OK, RET_OK = False, True
