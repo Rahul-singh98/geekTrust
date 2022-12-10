@@ -91,4 +91,4 @@ class BaseStation(ABC):
 
     @abstractmethod
     def printSummary(self):
-        raise NotImplemented
+        raise NotImplementedError

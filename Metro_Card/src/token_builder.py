@@ -20,16 +20,16 @@ class MetroCard(BaseToken):
 class TokenBuilder:
 
     def __init__(self):
-        self.token_pool = dict()
+        self._token_pool = dict()
 
     def getAllTokens(self) -> List:
-        return [token for token in self.token_pool.values()]
+        return [token for token in self._token_pool.values()]
 
     def addToken(self, token: BaseToken) -> bool:
-        if token.getId() in self.token_pool:
+        if token.getId() in self._token_pool:
             return False
-        self.token_pool[token.getId()] = token
+        self._token_pool[token.getId()] = token
         return True
 
     def getToken(self, token_id: str) -> BaseToken:
-        return self.token_pool.get(token_id)
+        return self._token_pool.get(token_id)

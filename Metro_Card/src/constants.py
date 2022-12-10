@@ -14,13 +14,15 @@ class InputPrefix(Enum):
     CHECK_IN = "CHECK_IN"
     PRINT_SUMMARY = "PRINT_SUMMARY"
 
+
 class BalanceIndexes(Enum):
     ID, AMT = 1, 2
+
 
 class CheckInIndexes(Enum):
     T_ID, P_TYPE, S_NAME = 1, 2, 3
 
 
-class OutputFormat(Enum):
+class OutputPrefix(Enum):
     TOTAL_COLLECTION = "TOTAL_COLLECTION"
     PASSENGER_TYPE_SUMMARY = "PASSENGER_TYPE_SUMMARY"

@@ -1,5 +1,5 @@
 from .base import BaseStation, BaseToken
-from .constants import OutputFormat, PassengerCharges
+from .constants import OutputPrefix, PassengerCharges
 from typing import List
 
 
@@ -12,9 +12,9 @@ class MetroStation(BaseStation):
         return super().addPassenger(token, passenger_type, discount)
 
     def printSummary(self):
-        print(OutputFormat.TOTAL_COLLECTION.value,
+        print(OutputPrefix.TOTAL_COLLECTION.value,
               self.getName(), self.getEarnings(), self.getDiscountsGiven())
-        print(OutputFormat.PASSENGER_TYPE_SUMMARY.value)
+        print(OutputPrefix.PASSENGER_TYPE_SUMMARY.value)
         for passenger in self.getPassengersList():
             print(passenger[0], passenger[1])
 
@@ -22,16 +22,16 @@ class MetroStation(BaseStation):
 class StationBuilder:
 
     def __init__(self):
-        self.station_pool = dict()
+        self._station_pool = dict()
 
     def addStation(self, station: BaseStation) -> bool:
-        if station.getName() in self.station_pool:
+        if station.getName() in self._station_pool:
             return False
-        self.station_pool[station.getName()] = station
+        self._station_pool[station.getName()] = station
         return True
 
     def getStation(self, station_name: str) -> BaseStation:
-        return self.station_pool.get(station_name)
+        return self._station_pool.get(station_name)
 
     def getAllStations(self) -> List[BaseStation]:
-        return [station for station in self.station_pool.values()]
+        return [station for station in self._station_pool.values()]
