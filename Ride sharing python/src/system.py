@@ -1,104 +1,45 @@
-from drivers import Driver
-from riders import Rider
-from locations import Location
-from typing import List
+from .managers import DriverManager, RidersManager, RidesManager
+from .strategies.billingStrategies import SimpleBilling
+from .strategies.distanceStrategies import EuclideanStrategy
+from .location import Location
+from .drivers.driver import Driver
+from .riders.rider import Rider
 
 
 class System:
+    MATCHES_RETURN_LENGTH = 5
 
     def __init__(self):
-        self._riders_manager = {}
-        self._drivers_manager = {}
-        self._rides_manager = {}
-        self._matched_drivers = {}
+        self._drivers_manager = DriverManager(SimpleBilling())
+        self._riders_manager = RidersManager()
+        self._rides_manager = RidesManager(EuclideanStrategy())
 
-    def add_rider(self, id: str, x: int, y: int) -> None:
-        """Add a new rider to the system.
+    def add_driver(self, driver_id: str, x: int, y: int):
+        if self._drivers_manager.is_present(driver_id):
+            raise ValueError(f'{driver_id} is already present')
 
-        Parameters:
-        -----------
-            id : str
-                Unique id of the rider
-            x : int
-                X Coordinate of the rider
-            y : int
-                Y Coordinate of the rider 
-        """
-        if id not in self._riders_manager:
-            location = Location(x, y)
-            rider = Rider(id, location)
+        location = Location(x, y)
+        driver = Driver(id, location)
+        self._drivers_manager.add(driver_id, driver)
 
-            self._riders_manager[id] = rider
+    def add_rider(self, rider_id: str, x: int, y: int):
+        if self._riders_manager.is_present(rider_id):
+            raise ValueError(f'{rider_id} is already present')
 
-    def add_driver(self, id: str, x: int, y: int) -> None:
-        """Add a new driver to the system.
+        location = Location(x, y)
+        rider = Rider(id, location)
+        self._riders_manager.add(rider_id, rider)
 
-        Parameters:
-        -----------
-            id : str
-                Unique id of the driver
-            x : int
-                X Coordinate of the driver
-            y : int
-                Y Coordinate of the driver 
-        """
-        if id not in self._drivers_manager:
-            location = Location(x, y)
-            driver = Driver(id, location)
+    def match(self, rider_id):
+        _ = self._drivers_manager.match(self.MATCHES_RETURN_LENGTH,
+                                        self._riders_manager.get(rider_id))
+        # write logic here
 
-            self._drivers_manager[id] = driver
-
-    def match(self, rider_id: str) -> None:
-        """Find nearest drivers to the locatio of rider_id
-
-        Parameters:
-        -----------
-            rider_id : string
-                Unique id of the rider
-        """
-        drivers_list = list(self._drivers_manager.values())
-        rider = self._riders_manager.get(rider_id)
-
-        # get list of drivers who are near to rider
-        def get_closest_drivers() -> List[Driver]:
-            ans = []
-
-    def start_ride(self, ride_id: str, n: int, rider_id: str) -> None:
-        """Start a ride
-
-        Parameters:
-        -----------
-            ride_id: string
-                Unique id for the ride.
-            n: int
-                Index of the driver to start ride with.
-            rider_id: string
-                Unique id for the rider.
-        """
+    def start_ride(self, ride_id: str, n: int, rider_id: str):
         pass
 
-    def stop_ride(self, ride_id: str, dest_x: int, dest_y: int, time_taken: int) -> None:
-        """Stop a ride.
-
-        Parameters:
-        -----------
-            ride_id: str
-                Unique id of the ride.
-            dest_x: int
-                X coordinate of ride's destination
-            dest_y: int
-                Y coordinate of ride's destination
-            time_taken: int
-                Total time taken for the journey.
-        """
+    def stop_ride(self, ride_id: str, dest_x: int, dest_y: int, time_taken: int):
         pass
 
-    def bill(self, ride_id: str) -> None:
-        """Print the bill of the ride.
-
-        Parameters:
-        -----------
-            ride_id : str
-                Unique id of the ride.
-        """
+    def bill(self, ride_id):
         pass
